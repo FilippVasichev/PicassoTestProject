@@ -1,7 +1,7 @@
 from celery.utils.log import get_task_logger
 
 from api.models import File
-from picasso_test.celery import app
+from file_uploader.celery import app
 
 logger = get_task_logger(__name__)
 

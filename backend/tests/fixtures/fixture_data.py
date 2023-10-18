@@ -3,7 +3,7 @@ import tempfile
 import pytest
 
 from api.models import File
-from picasso_test.celery import app
+from file_uploader.celery import app
 
 
 @pytest.fixture()

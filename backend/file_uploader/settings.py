@@ -30,7 +30,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'picasso_test.urls'
+ROOT_URLCONF = 'file_uploader.urls'
 
 TEMPLATES = [
     {
@@ -48,7 +48,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'picasso_test.wsgi.application'
+WSGI_APPLICATION = 'file_uploader.wsgi.application'
 
 DATABASES = {
     'default': {
