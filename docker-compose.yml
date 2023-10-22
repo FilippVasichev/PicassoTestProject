@@ -1,8 +1,8 @@
 version: '3'
 
 volumes:
-  test_project:
   uploader_postgre:
+  drf_static:
 
 services:
   postgresql:
@@ -20,7 +20,7 @@ services:
       - .env
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
-      - test_project:/backend
+      - drf_static:/backend_static
     depends_on:
       - postgresql
 
@@ -30,6 +30,8 @@ services:
     hostname: nginx
     ports:
       - 8000:80
+    volumes:
+      - drf_static:/staticfiles/
     depends_on:
       - backend
 
@@ -48,8 +50,6 @@ services:
     env_file:
       - .env
     command: celery -A file_uploader worker -l info
-    volumes:
-      - test_project:/backend
     depends_on:
       - redis
 
