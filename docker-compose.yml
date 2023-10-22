@@ -1,0 +1,55 @@
+version: '3'
+
+volumes:
+  test_project:
+  uploader_postgre:
+
+services:
+  postgresql:
+    image: postgres:latest
+    hostname: db
+    env_file: .env
+    volumes:
+      - uploader_postgre:/var/lib/postgresql/data
+
+  backend:
+    build:
+      ./backend/
+    hostname: backend
+    env_file:
+      - .env
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - test_project:/backend
+    depends_on:
+      - postgresql
+
+  gateway:
+    build:
+      ./gateway/
+    hostname: nginx
+    ports:
+      - 8000:80
+    depends_on:
+      - backend
+
+  redis:
+    image: redis:7.0.5-alpine
+    ports:
+      - 6379:6379
+    hostname: redis
+    depends_on:
+      - backend
+
+  worker:
+    build:
+      ./backend/
+    hostname: worker
+    env_file:
+      - .env
+    command: celery -A file_uploader worker -l info
+    volumes:
+      - test_project:/backend
+    depends_on:
+      - redis
+

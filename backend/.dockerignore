@@ -9,3 +9,5 @@ db.sqlite3
 */*/temp*
 temp?
 static/
+.coverage
+.mypy_cache
