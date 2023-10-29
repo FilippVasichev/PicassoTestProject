@@ -34,3 +34,6 @@ class File(models.Model):
         ordering = ('-uploaded_at',)
         verbose_name = 'Файл'
         verbose_name_plural = 'Файлы'
+
+    def __str__(self):
+        return self.file.name

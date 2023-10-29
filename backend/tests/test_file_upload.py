@@ -1,4 +1,3 @@
-import tempfile
 from http import HTTPStatus
 
 import pytest
@@ -99,4 +98,3 @@ class TestFileApi:
         expected_transliterated_name = 'testovoe_imja_fajla_na_kirillitse.txt'
         test_file = File.objects.create(file=file_name)
         assert test_file.file.name == expected_transliterated_name
-
