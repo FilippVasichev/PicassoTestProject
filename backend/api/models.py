@@ -7,7 +7,7 @@ def upload_to(instance, filename):
     """
     Возвращает директорию для сохранения файла.
     """
-    return f'files/{filename_to_ascii(filename)}'
+    return f'files/{filename}'
 
 
 class File(models.Model):
@@ -22,6 +22,13 @@ class File(models.Model):
         'Статус обработки',
         default=False,
     )
+
+    def save(self, *args, **kwargs):
+        """
+        Изменяем имя файла на транслитерированное значение перед сохранением.
+        """
+        self.file.name = filename_to_ascii(self.file.name)
+        super(File, self).save(*args, **kwargs)
 
     class Meta:
         ordering = ('-uploaded_at',)

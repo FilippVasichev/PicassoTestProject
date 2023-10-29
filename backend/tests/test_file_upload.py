@@ -1,3 +1,4 @@
+import tempfile
 from http import HTTPStatus
 
 import pytest
@@ -89,3 +90,13 @@ class TestFileApi:
         assert response.status_code == status.HTTP_201_CREATED, (
             'Ошибка при загрузке файла'
         )
+
+    def test_transliterate_file_name(self, client, mock_media):
+        """
+        Проверка работоспособности транслитерирующей имя файла функции.
+        """
+        file_name = 'тестовое_имя_файла_на_кириллице.txt'
+        expected_transliterated_name = 'testovoe_imja_fajla_na_kirillitse.txt'
+        test_file = File.objects.create(file=file_name)
+        assert test_file.file.name == expected_transliterated_name
+
