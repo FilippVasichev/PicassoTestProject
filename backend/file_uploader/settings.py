@@ -1,4 +1,5 @@
 import os
+
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -6,7 +7,6 @@ load_dotenv()
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SECRET_KEY = os.getenv('SECRET_KEY')
-# DEBUG = os.getenv('DJANGO_DEBUG', False) == 'True'
 DEBUG = False
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(',')
 
@@ -18,6 +18,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'drf_yasg',
 
     'api.apps.ApiConfig',
 ]
@@ -52,7 +53,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'file_uploader.wsgi.application'
 
-DATABASES = {
+
+POSTGRESQL = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': os.getenv('POSTGRES_DB', 'django'),
@@ -62,6 +64,15 @@ DATABASES = {
         'PORT': os.getenv('DB_PORT', 5432)
     }
 }
+
+SQLITE = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
+
+DATABASES = POSTGRESQL
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -97,8 +108,8 @@ REST_FRAMEWORK = {
     ],
 }
 
-#CELERY settings
-# REDIS_HOST = "0.0.0.0"
+# CELERY settings
+
 REDIS_PORT = "6379"
 REDIS_HOST = 'redis'
 

@@ -1,4 +1,3 @@
-import tempfile
 from http import HTTPStatus
 
 import pytest
@@ -55,7 +54,8 @@ class TestFileApi:
             response = client.get(self.file_upload_urls)
         except Exception as e:
             assert False, (
-                f'Страница "{self.file_upload_urls}"  не работает. Ошибка: "{e}"'
+                f'Страница "{self.file_upload_urls}"  не работает.'
+                f' Ошибка: "{e}"'
             )
         assert response.status_code != HTTPStatus.NOT_FOUND, (
             f'Страница `{self.file_upload_urls}` не найдена,'
@@ -67,12 +67,12 @@ class TestFileApi:
         )
 
     @pytest.mark.parametrize(
-            'file_name, content_type', [
+        'file_name, content_type', [
             ('test_file.jpg', 'image/jpg'),
             ('test_file.txt', 'text/plain'),
         ]
     )
-    def test_file_upload(self, client, file_name, content_type):
+    def test_file_upload(self, client, file_name, content_type, mock_media):
         """
         Проверка работоспособности эндпоинта
         api/files/upload для разных типов файлов.

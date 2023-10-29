@@ -4,6 +4,9 @@ from api.utils.transliterate_filename import filename_to_ascii
 
 
 def upload_to(instance, filename):
+    """
+    Возвращает директорию для сохранения файла.
+    """
     return f'files/{filename_to_ascii(filename)}'
 
 

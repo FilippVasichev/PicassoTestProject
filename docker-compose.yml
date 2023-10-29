@@ -18,7 +18,7 @@ services:
     hostname: backend
     env_file:
       - .env
-    command: python manage.py runserver 0.0.0.0:8000
+    command: python manage.py runserver 0.0.0.0:8000 && python manage.py collectstatic --noinput && cp -r /picasso_test/collected_static/. /backend_static/static/
     volumes:
       - drf_static:/backend_static
     depends_on:

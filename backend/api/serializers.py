@@ -1,11 +1,14 @@
 from rest_framework import serializers
-from .models import File
+
 from api.tasks import change_processed_status
+from .models import File
+
 
 class FileSerializer(serializers.ModelSerializer):
     """
     Сериализатор для чтения всех Файлов.
     """
+
     class Meta:
         model = File
         fields = (
