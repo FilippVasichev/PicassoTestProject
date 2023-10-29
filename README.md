@@ -62,7 +62,7 @@ docker-compose up --build
 + Python 3.9
 + Django: 3.2.3
 + Django REST framework: 3.12.4
-+ celery 5.3.4
+
 
 
 ## спецификация OpenAPI
